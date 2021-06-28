@@ -1,3 +1,4 @@
+# CRUDIPIE 2021 6 27
 # engine imports
 import os
 import json
@@ -5,7 +6,7 @@ import random
 import names
 
 # add games to use the engine here
-import game
+# import space_prison
 
 # JSON DICTIONARY DATABASE ENGINE
 #
@@ -27,7 +28,7 @@ def random_num(number):
 
 # CRUPD
 def create(dictionary_name):
-    blank_dictionary = []
+    blank_dictionary = {}
     with open(path + dictionary_name + '.json', 'w') as outfile:
         json.dump(blank_dictionary, outfile, indent=4)
 
@@ -52,7 +53,7 @@ def delete(dictionary_name):
     else:
         print('The selected file does not exist')
 
-# IEO
+# IEOT
 def input_atr(dictionary, string):
     for i in range(len(string)):
             if string[i] == " ":
@@ -72,6 +73,13 @@ def output_atr(dictionary, string):
     print('o '+ string)
     print('o ' + dictionary[string])
     return(dictionary[string])
+
+def tally_atr(dictionary):
+    print('t')
+    count = 0
+    for value in dictionary.values():
+        count = count + float(value)
+    return(count)
 
 # CYOA
 # on an engine level, create a copy of the dictionary as the dict_template
@@ -100,7 +108,7 @@ def fname():
 # CRUPD offers create, retrieve, update, patch, delete
 # IEO offers input, erase, output
 def run():
-    games=['game']
+    games=['sp']
     mem={} 
     sel = ''
     while (sel != 'q' and 'quit' and 'exit'):
@@ -109,7 +117,11 @@ def run():
 
         # generates a random number from 1 up to that number
         if sel.isnumeric():
-            print(random_num())
+            print(random_num(sel))
+
+        # checking for no inputs
+        elif sel == '':
+            print('')
 
         # edit the path of the database
         elif sel[0:4] == 'path': # from 0 to the 4th place that is the space to pick 0 to 3
@@ -118,8 +130,7 @@ def run():
 
         # run games
         elif sel in games:
-            if sel == 'game':
-                game.play()
+            sel.play()
 
         elif sel == 'mname':
             print(mname())
@@ -130,10 +141,6 @@ def run():
         # prints memory
         elif sel == 'pm':
             print(mem)
-
-        # checking for no inputs before sel[0]
-        elif sel == '':
-            print('')
 
         # CRUD - str being the name of the database file
         # create json
@@ -176,5 +183,9 @@ def run():
         elif sel[0] == 'o':
             str = sel[2:]
             output_atr(mem,str)
+
+        # tally up all the values
+        elif sel[0] == 't':
+            print(tally_atr(mem))
     
     print('exit')
