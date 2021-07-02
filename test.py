@@ -44,3 +44,5 @@
 #     elif sel == 'path':
 #         print(sel)
 #         print('asdf')
+
+# test for termux
